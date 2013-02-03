@@ -1,0 +1,6 @@
+name =User stats
+description =User statitics
+package = User
+dependencies[] = date
+core = 6.x
+version = "6.x-1.1"

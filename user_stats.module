@@ -1,0 +1,54 @@
+<?php
+/*
+*
+* Implements hook_perm()
+*/
+
+function user_stats_perm() {
+    return array('administer user_stats','administer user_stats settings');
+}
+
+/**
+ * Implementation of hook_menu().
+ */
+
+function user_stats_menu() {
+    $items=array();
+    $items['admin/user/user/report'] = array(
+    'title' => 'Reports',
+    'page callback' => 'user_stats_dash',
+    'access arguments' =>  array('administer user_stats settings'),
+    'description' => 'User stats data',
+    'type' => MENU_LOCAL_TASK,
+    'file' => 'user_stats_admin.inc'
+    );
+     $items['user_stats/export'] = array(
+        'title' => 'Export',
+        'page callback' => 'user_stats_export',
+        'access arguments' => array('administer user_stats settings'),
+        'type' => MENU_CALLBACK,
+        'file' => 'user_stats_admin.inc'
+    );
+
+    return $items;
+}
+
+
+/**
+ * Implementation of hook_theme().
+ */
+function user_stats_theme() {
+
+    return array(
+    'user_stats_dash' => array(
+    'arguments' => array('data' => NULL,'html'=>NULL),
+    'template' =>'user-stats-dash',
+    'path' =>drupal_get_path('module', 'user_stats')."/themes",
+    'theme path' =>path_to_theme()
+    )
+
+    );
+}
+
+
+
